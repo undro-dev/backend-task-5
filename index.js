@@ -14,7 +14,6 @@ import {
 	getAllMessageByUserId,
 	getSentMessagesToUser,
 } from './controllers/post.js';
-import { userConnected, userDisConnected } from './socket/users.js';
 
 const PORT = process.env.PORT || 3001;
 
@@ -42,8 +41,6 @@ io.on('connection', socket => {
 	socket.on('sent_message', data => {
 		console.log(data);
 		socket.to(data.toId).emit('recv_message', data);
-		// console.log(data);
-		// socket.to(data.sender).emit('recv_message', data);
 	});
 
 	socket.on('disconnect', () => {
